@@ -1,0 +1,63 @@
+var nbMaxprofile = 500;
+var window_height = document.body.clientHeight;
+
+function scrollDown(height){
+ var queryAll = document.querySelectorAll('.org-alumni-profile-card__connect-button-expanded');
+ console.log("Nombre de profils visibles : " + queryAll.length)
+ if (queryAll.length > nbMaxprofile){
+	console.log("Terminé !!!!!");
+	return;
+ }
+	
+ scroll(0, document.body.clientHeight);
+ setTimeout(function(){
+  if(window_height != height){
+   window_height = document.body.clientHeight;
+   scrollDown(document.body.clientHeight);
+  }else
+      setTimeout(function(){
+     scroll(0, 0);
+        scrollDown(document.body.clientHeight);
+      }, 2500); 
+ 
+     }, 2500);
+}
+
+scrollDown(window_height);
+
+
+
+
+///////////////////////////////////////////// Script 2
+
+var nbMaxprofile = 500;
+var queryAll = document.querySelectorAll('.org-alumni-profile-card__connect-button-expanded');
+var nbProfile = queryAll.length;
+console.log(nbProfile);
+var icount = 0;
+var nbProfilAdded = 0;
+Connection();
+
+function Connection()
+{
+	if (icount == nbProfile)
+		return;
+	if (icount < nbMaxprofile)
+	{
+		if (queryAll[icount] != null){
+		queryAll[icount].click();
+		var querybuttoninvite = document.querySelector('.button-primary-large');
+		console.log(querybuttoninvite);
+		querybuttoninvite.click();
+		nbProfilAdded++;		
+		console.log ("Nombre Total de demandes effectuées : " + nbProfilAdded + "/" + nbMaxprofile);
+		}
+		icount++;
+		setTimeout(Connection, 1000 + Math.random()*10000);
+	}
+	else
+		return;
+}
+
+
+
